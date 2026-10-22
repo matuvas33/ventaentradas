@@ -30,4 +30,10 @@ public class EventoService {
         return eventoMapper.toDto(guardado);
     }
 
+    public EventoResponse obtenerEventoId(Long id){
+       Evento eventoEncontrado = eventoRepository.findByIdOrThrow(id);
+
+        return eventoMapper.toDto(eventoEncontrado);
+    }
+
 }
