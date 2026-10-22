@@ -8,10 +8,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/eventos")
@@ -23,6 +20,11 @@ public class EventoController {
     @PostMapping
     public ResponseEntity<EventoResponse> crearEvento(@Valid @RequestBody CrearEvento crearEvento){
         return ResponseEntity.status(HttpStatus.CREATED).body(eventoService.crearEvento(crearEvento));
+    }
+
+    @GetMapping("{/id}")
+    public ResponseEntity<EventoResponse> obtenerEventoId(@PathVariable Long id){
+        return ResponseEntity.ok(eventoService.obtenerEventoId(id));
     }
 
 
