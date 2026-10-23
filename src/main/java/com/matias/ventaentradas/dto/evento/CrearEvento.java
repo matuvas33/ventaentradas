@@ -6,13 +6,13 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public record CrearEvento (
         @NotBlank
         String nombre,
         @NotNull
-        LocalDateTime fecha,
+        LocalDate fecha,
         @NotNull
         @Min(value = 1)
         Integer capacidadTotal,

@@ -16,7 +16,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -37,7 +37,7 @@ public class EventoServiceTest {
 
     @Test
     void crearEvento_lanzaEventoDuplicado(){
-        CrearEvento crearEvento  = new CrearEvento("Obra de Teatro: La Sombra del Olvido", LocalDateTime.now(),120, BigDecimal.valueOf(20.00));
+        CrearEvento crearEvento  = new CrearEvento("Obra de Teatro: La Sombra del Olvido", LocalDate.now(),120, BigDecimal.valueOf(20.00));
         when(eventoRepository.existsByNombre("Obra de Teatro: La Sombra del Olvido")).thenReturn(true);
 
         assertThrows(EventoDuplicadoException.class,
@@ -49,7 +49,7 @@ public class EventoServiceTest {
     @Test
     void crearEvento_creaSiNoHayNombreDuplicado(){
 
-        LocalDateTime fechaEsperada = LocalDateTime.of(2026,11,20,20,0);
+        LocalDate fechaEsperada = LocalDate.of(2026,11,30);
         BigDecimal precioEsperado = BigDecimal.valueOf(20.00);
 
         CrearEvento crearEvento = new CrearEvento("Festival B",fechaEsperada,120,precioEsperado);
@@ -81,7 +81,7 @@ public class EventoServiceTest {
 
     @Test
     void obtenerEventoId_daEventoEncontrado(){
-        LocalDateTime fecha = LocalDateTime.of(2026,11,20,20,0);
+        LocalDate fecha = LocalDate.of(2026,11,20);
         BigDecimal precio = BigDecimal.valueOf(20.00);
 
         Evento evento = new Evento("Hola",fecha,120,120, precio);

@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -20,7 +20,7 @@ public class Evento {
     @Column(name = "nombre",length = 100,nullable = false)
     private String nombre;
     @Column(name = "fecha",nullable = false)
-    private LocalDateTime fecha;
+    private LocalDate fecha;
     @Column(name = "capacidad_total",nullable = false)
     private Integer capacidadTotal;
     @Column(name = "capacidad_disponible",nullable = false)
@@ -28,7 +28,7 @@ public class Evento {
     @Column(name = "precio",precision = 10,scale = 2)
     private BigDecimal precio;
 
-    public Evento(String nombre, LocalDateTime fecha, Integer capacidadTotal, Integer capacidadDisponible, BigDecimal precio) {
+    public Evento(String nombre, LocalDate fecha, Integer capacidadTotal, Integer capacidadDisponible, BigDecimal precio) {
         this.nombre = nombre;
         this.fecha = fecha;
         this.capacidadTotal = capacidadTotal;

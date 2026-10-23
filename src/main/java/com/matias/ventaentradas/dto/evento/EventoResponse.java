@@ -1,12 +1,12 @@
 package com.matias.ventaentradas.dto.evento;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public record EventoResponse(
         Long id,
         String nombre,
-        LocalDateTime fecha,
+        LocalDate fecha,
         Integer capacidadTotal,
         Integer capacidadDisponible,
         BigDecimal precio

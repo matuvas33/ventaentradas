@@ -3,19 +3,30 @@ package com.matias.ventaentradas.globalexceptionhandler;
 import com.matias.ventaentradas.dto.error.MensajeError;
 import com.matias.ventaentradas.globalexceptionhandler.excepciones.EventoDuplicadoException;
 import com.matias.ventaentradas.globalexceptionhandler.excepciones.EventoNoEncontradoException;
+import com.matias.ventaentradas.globalexceptionhandler.excepciones.SinCapacidadException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
-import java.util.Locale;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.CONFLICT)
     @ExceptionHandler(EventoDuplicadoException.class)
     public MensajeError eventoDuplicado(EventoDuplicadoException ex){
+        return new MensajeError(
+                HttpStatus.CONFLICT.value(),
+                "CONFLICT",
+                ex.getMessage(),
+                LocalDateTime.now()
+        );
+    }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(SinCapacidadException.class)
+    public MensajeError sinCapcidad(SinCapacidadException ex){
         return new MensajeError(
                 HttpStatus.CONFLICT.value(),
                 "CONFLICT",
@@ -34,5 +45,6 @@ public class GlobalExceptionHandler {
                 LocalDateTime.now()
         );
     }
+
 
 }
