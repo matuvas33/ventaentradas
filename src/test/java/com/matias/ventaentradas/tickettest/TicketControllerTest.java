@@ -2,6 +2,7 @@ package com.matias.ventaentradas.tickettest;
 
 import com.matias.ventaentradas.controller.TicketController;
 import com.matias.ventaentradas.dto.ticket.CompraTickets;
+import com.matias.ventaentradas.dto.ticket.TicketResponse;
 import com.matias.ventaentradas.globalexceptionhandler.excepciones.EventoNoEncontradoException;
 import com.matias.ventaentradas.globalexceptionhandler.excepciones.SinCapacidadException;
 import com.matias.ventaentradas.model.Evento;
@@ -9,6 +10,7 @@ import com.matias.ventaentradas.service.TicketService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.cglib.core.Local;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -17,6 +19,7 @@ import tools.jackson.databind.ObjectMapper;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -62,6 +65,21 @@ public class TicketControllerTest {
                 .andExpect(status().isConflict())
                 .andExpect(jsonPath("$.status").value(HttpStatus.CONFLICT.value()))
                 .andExpect(jsonPath("$.mensaje").value("Test"));
+    }
+
+    @Test
+    void comprarTicket_da201CuandoCorrecto() throws Exception{
+        LocalDate fecha = LocalDate.of(2026,8,27);
+        Evento evento;
+        evento = new Evento("Test",fecha,120,120,new BigDecimal("20.00"));
+        evento.setId(1L);
+        CompraTickets compraTickets = new CompraTickets(1L,"test@gmail.com",4);
+
+        TicketResponse response = new TicketResponse(3L,1L,"Test","test@gmail.com",
+                4, LocalDateTime.now());
+
+        when(ticketService.comprarTicket(any(CompraTickets.class))).thenReturn(response);
+
     }
 
 
