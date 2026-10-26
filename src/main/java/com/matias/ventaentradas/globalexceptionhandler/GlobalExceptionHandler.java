@@ -1,6 +1,7 @@
 package com.matias.ventaentradas.globalexceptionhandler;
 
 import com.matias.ventaentradas.dto.error.MensajeError;
+import com.matias.ventaentradas.globalexceptionhandler.excepciones.CompraNoEncontradaException;
 import com.matias.ventaentradas.globalexceptionhandler.excepciones.EventoDuplicadoException;
 import com.matias.ventaentradas.globalexceptionhandler.excepciones.EventoNoEncontradoException;
 import com.matias.ventaentradas.globalexceptionhandler.excepciones.SinCapacidadException;
@@ -40,6 +41,17 @@ public class GlobalExceptionHandler {
     public MensajeError eventoNoEncontrado(EventoNoEncontradoException ex){
         return new MensajeError(
                 HttpStatus.NOT_FOUND.value(),
+                "NOT FOUND",
+                ex.getMessage(),
+                LocalDateTime.now()
+        );
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(CompraNoEncontradaException.class)
+    public MensajeError compraNoEncontrada(CompraNoEncontradaException ex){
+        return new MensajeError(
+                HttpStatus.NO_CONTENT.value(),
                 "NOT FOUND",
                 ex.getMessage(),
                 LocalDateTime.now()

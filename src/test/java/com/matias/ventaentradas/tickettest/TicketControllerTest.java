@@ -80,6 +80,14 @@ public class TicketControllerTest {
 
         when(ticketService.comprarTicket(any(CompraTickets.class))).thenReturn(response);
 
+        mockMvc.perform(post("/api/tickets")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(compraTickets)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.emailComprador").value("test@gmail.com"))
+                .andExpect(jsonPath("$.cantidad").value(4));
+
+
     }
 
 
