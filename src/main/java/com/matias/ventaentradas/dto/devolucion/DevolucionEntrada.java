@@ -5,8 +5,6 @@ import jakarta.validation.constraints.NotNull;
 
 public record DevolucionEntrada(
         @NotNull
-        Long compraId,
-        @NotNull
         @Min(value = 1)
         Integer cantidad
 ) {

@@ -22,7 +22,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -51,12 +51,8 @@ public class TicketControllerTest {
 
     @Test
     void comprarTicket_da409SiSinCapacidad()throws Exception{
-        LocalDate fecha = LocalDate.of(2026,8,27);
-        Evento evento;
-        evento = new Evento("Test",fecha,120,120,new BigDecimal("20.00"));
-        evento.setCapacidadDisponible(3);
-        evento.setId(1L);
         CompraTickets compraTickets = new CompraTickets(1L,"test@gmail.com",4);
+
         when(ticketService.comprarTicket(any(CompraTickets.class))).thenThrow(new SinCapacidadException("Test"));
 
         mockMvc.perform(post("/api/tickets")
@@ -66,13 +62,21 @@ public class TicketControllerTest {
                 .andExpect(jsonPath("$.status").value(HttpStatus.CONFLICT.value()))
                 .andExpect(jsonPath("$.mensaje").value("Test"));
     }
+    @Test
+    void comprarTicket_da400CuandoFaltanCampos() throws Exception{
+        CompraTickets compraTickets = new CompraTickets(null,"",-4);
+
+        mockMvc.perform(post("/api/tickets")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(compraTickets)))
+                .andExpect(status().isBadRequest());
+
+        verify(ticketService,never()).comprarTicket(any());
+    }
 
     @Test
     void comprarTicket_da201CuandoCorrecto() throws Exception{
-        LocalDate fecha = LocalDate.of(2026,8,27);
-        Evento evento;
-        evento = new Evento("Test",fecha,120,120,new BigDecimal("20.00"));
-        evento.setId(1L);
+
         CompraTickets compraTickets = new CompraTickets(1L,"test@gmail.com",4);
 
         TicketResponse response = new TicketResponse(3L,1L,"Test","test@gmail.com",
@@ -86,8 +90,6 @@ public class TicketControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.emailComprador").value("test@gmail.com"))
                 .andExpect(jsonPath("$.cantidad").value(4));
-
-
     }
 
 

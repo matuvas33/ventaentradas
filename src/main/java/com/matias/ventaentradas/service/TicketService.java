@@ -35,7 +35,7 @@ public class TicketService {
         evento.setCapacidadDisponible(resta);
         eventoRepository.save(evento);
 
-        Ticket comprarTicket = new Ticket(evento,compraTickets.emailComprador(),compraTickets.cantidad());
+        Ticket comprarTicket = mapper.toEntity(compraTickets,evento);
 
         Ticket guardar = ticketRepository.save(comprarTicket);
 
