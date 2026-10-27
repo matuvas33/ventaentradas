@@ -29,7 +29,7 @@ public class EventoController {
     @GetMapping
     public Page<EventoResponse> listarEventos(
             @RequestParam(required = false)
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
             LocalDate fecha,
             @RequestParam(required = false,defaultValue = "false")
             Boolean soloDisponible,

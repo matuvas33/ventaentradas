@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
     public MensajeError eventoNoEncontrado(EventoNoEncontradoException ex){
         return new MensajeError(
                 HttpStatus.NOT_FOUND.value(),
-                "BAD REQUEST",
+                "NOT FOUND",
                 ex.getMessage(),
                 LocalDateTime.now()
         );
