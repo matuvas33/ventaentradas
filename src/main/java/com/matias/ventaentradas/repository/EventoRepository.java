@@ -20,5 +20,5 @@ public interface EventoRepository extends JpaRepository<Evento,Long> {
 
     Page<Evento> findByCapacidadDisponibleGreaterThan(int capacidad,Pageable pageable);
 
-    Page<Evento> findByFechaCapacidadDisponibleGreaterThan(LocalDate fecha,int capacidad,Pageable pageable);
+    Page<Evento> findByFechaAndCapacidadDisponibleGreaterThan(LocalDate fecha, int capacidad, Pageable pageable);
 }

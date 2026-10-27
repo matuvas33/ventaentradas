@@ -56,7 +56,7 @@ public class DevolucionControllerTest {
         ticket.setId(1L);
         DevolucionEntrada devolucionEntrada = new DevolucionEntrada(-4);
 
-        mockMvc.perform(post("/api/tickets/1L/devoluciones")
+        mockMvc.perform(post("/api/tickets/1/devoluciones")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(devolucionEntrada)))
                 .andExpect(status().isBadRequest());

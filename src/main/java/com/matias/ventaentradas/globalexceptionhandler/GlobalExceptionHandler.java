@@ -33,11 +33,11 @@ public class GlobalExceptionHandler {
         );
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(EventoNoEncontradoException.class)
     public MensajeError eventoNoEncontrado(EventoNoEncontradoException ex){
         return new MensajeError(
-                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.NOT_FOUND.value(),
                 "BAD REQUEST",
                 ex.getMessage(),
                 LocalDateTime.now()

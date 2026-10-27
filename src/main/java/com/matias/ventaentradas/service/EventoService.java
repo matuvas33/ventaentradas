@@ -36,7 +36,7 @@ public class EventoService {
       boolean filtrarDisponibles = Boolean.TRUE.equals(soloDisponibles);
       Page<Evento> eventos;
       if (fecha !=null && soloDisponibles){
-          eventos=eventoRepository.findByFechaCapacidadDisponibleGreaterThan(fecha,0,pageable);
+          eventos=eventoRepository.findByFechaAndCapacidadDisponibleGreaterThan(fecha,0,pageable);
       }
       else if (fecha!=null){
 

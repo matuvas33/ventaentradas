@@ -3,6 +3,7 @@ package com.matias.ventaentradas.controller;
 import com.matias.ventaentradas.dto.devolucion.DevolucionEntrada;
 import com.matias.ventaentradas.dto.devolucion.DevolucionResponse;
 import com.matias.ventaentradas.service.DevolucionService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ public class DevolucionController {
 
     @PostMapping
     public ResponseEntity<DevolucionResponse> procesarDevolucion(
-            @PathVariable Long id, @RequestBody DevolucionEntrada devolucionEntrada
+            @PathVariable Long id,@Valid @RequestBody DevolucionEntrada devolucionEntrada
             ){
         DevolucionResponse response = devolucionService.devolucionTicket(id,devolucionEntrada);
 
